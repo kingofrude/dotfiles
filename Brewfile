@@ -28,10 +28,10 @@ brew 'imagemagick'        # Image processing
 brew 'ffmpeg'             # Video processing
 brew 'sevenzip'           # Archive manager
 brew 'wget'               # Network downloader
-brew 'jq'                 # JSON processor
+# brew 'jq'                 # JSON processor
 brew 'poppler'            # PDF processing
 brew 'resvg'              # SVG processing
-brew 'yt-dlp'             # YouTube downloader
+# brew 'yt-dlp'             # YouTube downloader
 brew 'grc'                # Colorize command output
 
 # MacOS Input Source Manager
@@ -40,12 +40,12 @@ cask 'input-source-pro'
 
 # GUI applications
 cask 'ghostty'            # Terminal emulator
-cask 'notion'             # Note-taking app
-cask 'wechat'             # Messaging app
+# cask 'notion'             # Note-taking app
+# cask 'wechat'             # Messaging app
 cask 'visual-studio-code' # Code editor
 cask 'snipaste'           # Screenshot tool
 cask 'loop'               # Window management tool
-cask 'mac-mouse-fix'      # Make Your $10 Mouse Better Than an Apple Trackpad
+# cask 'mac-mouse-fix'      # Make Your $10 Mouse Better Than an Apple Trackpad
 cask 'beekeeper-studio'   # Database management tool
 
 # Font for terminal

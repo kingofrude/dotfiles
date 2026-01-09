@@ -1,14 +1,3 @@
-# npm configuration
-# Public settings only - sensitive data goes in ~/.localrc or ~/.dotfiles/node/env.local
-
-# Global package path
 prefix=~/.npm-global
-
-# Use faster registry (optional)
-# registry=https://registry.npmmirror.com
-
-# Increase timeout
 fetch-timeout=60000
-
-# Progress bar
 progress=true
