@@ -15,7 +15,11 @@ brew 'tmux'               # Terminal multiplexer
 brew 'yazi'               # File manager
 
 # Development tools
-brew 'fnm'                # Fast Node Manager
+brew 'fnm'                # Fast Node Manager (use fnm, not nvm)
+brew 'go'
+brew 'maven'
+brew 'mysql'
+brew 'cloudflared'
 brew 'watchman'           # File watcher for React Native
 brew 'uv'                 # Python package and project manager
 brew 'rbenv'              # Ruby version manager
@@ -40,6 +44,10 @@ cask 'input-source-pro'
 
 # GUI applications
 cask 'ghostty'            # Terminal emulator
+cask 'docker-desktop'
+cask 'feishu'
+cask 'monitorcontrol'     # External display brightness / contrast
+cask 'clash-verge-rev'    # Clash Verge proxy client
 # cask 'notion'             # Note-taking app
 # cask 'wechat'             # Messaging app
 cask 'visual-studio-code' # Code editor

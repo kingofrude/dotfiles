@@ -9,11 +9,10 @@ then
   source ~/.localrc
 fi
 
-# Source local configuration if it exists
-for file in $ZSH/**/env.local
-do
-  [[ -f $file ]] && source $file
-done
+# JAVA（必须在加载 dotfiles 之前设置，否则会被 react-native/java.zsh 覆盖为 Java 17）
+export MAVEN_OPTS="-Xms256m -Xmx1024m -Dfile.encoding=UTF-8"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # Load Zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -51,6 +50,62 @@ for file in ${(M)config_files:#*/completion.zsh}
 do
   source $file
 done
+
+# worktree
+wt-add() {
+  local branch="$1"
+  if [ -z "$branch" ]; then
+    echo "用法: wt-add <branch-name>"
+    return 1
+  fi
+  local repo_name=$(basename "$(git rev-parse --show-toplevel)")
+  local parent_dir=$(dirname "$(git rev-parse --show-toplevel)")
+  local wt_dir="${parent_dir}/${repo_name}--${branch}"
+
+  if git show-ref --verify --quiet "refs/heads/${branch}" 2>/dev/null; then
+    git worktree add "$wt_dir" "$branch"
+  else
+    git worktree add -b "$branch" "$wt_dir"
+  fi
+
+  echo "Worktree 已创建: $wt_dir"
+  echo "执行: cd $wt_dir && pnpm install"
+}
+
+wt-list() {
+  git worktree list
+}
+
+wt-remove() {
+  local branch="$1"
+  if [ -z "$branch" ]; then
+    echo "用法: wt-remove <branch-name>"
+    return 1
+  fi
+  local repo_name=$(basename "$(git rev-parse --show-toplevel)")
+  local parent_dir=$(dirname "$(git rev-parse --show-toplevel)")
+  local wt_dir="${parent_dir}/${repo_name}--${branch}"
+
+  git worktree remove "$wt_dir"
+  echo "Worktree 已移除: $wt_dir"
+}
+
+wt-cd() {
+  local branch="$1"
+  if [ -z "$branch" ]; then
+    echo "用法: wt-cd <branch-name>"
+    return 1
+  fi
+  local repo_name=$(basename "$(git rev-parse --show-toplevel)")
+  local parent_dir=$(dirname "$(git rev-parse --show-toplevel)")
+  local wt_dir="${parent_dir}/${repo_name}--${branch}"
+
+  if [ -d "$wt_dir" ]; then
+    cd "$wt_dir"
+  else
+    echo "Worktree 不存在: $wt_dir"
+  fi
+}
 
 unset config_files
 
