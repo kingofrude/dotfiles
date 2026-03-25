@@ -44,11 +44,38 @@ setup_gitconfig() {
     user ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" .config/git/config.local.example >.config/git/config.local
+    user ' - GitLab remote 主机名（用于企业提交身份，须出现在 git remote URL 中），回车默认 gitlab.your-company.com:'
+    read -e gitlab_host
+    [ -z "$gitlab_host" ] && gitlab_host='gitlab.your-company.com'
 
-    success 'gitconfig'
+    user ' - 企业 GitLab user.name，回车使用占位「你的企业姓名」:'
+    read -e enterprise_git_name
+    [ -z "$enterprise_git_name" ] && enterprise_git_name='你的企业姓名'
+
+    user ' - 企业 GitLab user.email，回车使用占位「你的企业邮箱@company.com」:'
+    read -e enterprise_git_email
+    [ -z "$enterprise_git_email" ] && enterprise_git_email='你的企业邮箱@company.com'
+
+    sed -e "s/AUTHORNAME/$git_authorname/g" \
+        -e "s/AUTHOREMAIL/$git_authoremail/g" \
+        -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" \
+        -e "s|GITLAB_HOST|$gitlab_host|g" \
+        .config/git/config.local.example > .config/git/config.local
+
+    sed -e "s/ENTERPRISENAME/$enterprise_git_name/g" \
+        -e "s/ENTERPRISEEMAIL/$enterprise_git_email/g" \
+        .config/git/config.gitlab.example > .config/git/config.gitlab.local
+
+    success 'gitconfig (含 GitLab 条件身份，见 .config/git/config.gitlab.local)'
   else
     success 'Git already set up'
+  fi
+
+  if ! [ -f .config/git/config.gitlab.local ]
+  then
+    info 'creating .config/git/config.gitlab.local from example (gitignored; 请填写企业姓名与邮箱)'
+    cp .config/git/config.gitlab.example .config/git/config.gitlab.local
+    success 'config.gitlab.local 已就绪 — 请编辑填写企业身份；若 config.local 尚无 GitLab includeIf，请对照 config.local.example'
   fi
 }
 

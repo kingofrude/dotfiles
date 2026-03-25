@@ -3,3 +3,10 @@
         email = AUTHOREMAIL
 [credential]
         helper = GIT_CREDENTIAL_HELPER
+
+# GitLab：remote URL 匹配时加载 config.gitlab.local（GitHub 等仍用上方默认）
+# SSH 须用 git@HOST:*/**（Git wildmatch 规则）；HTTPS 用 https://HOST/**
+[includeIf "hasconfig:remote.*.url:git@GITLAB_HOST:*/**"]
+        path = ~/.config/git/config.gitlab.local
+[includeIf "hasconfig:remote.*.url:https://GITLAB_HOST/**"]
+        path = ~/.config/git/config.gitlab.local
