@@ -12,7 +12,6 @@ fi
 # JAVA（必须在加载 dotfiles 之前设置，否则会被 react-native/java.zsh 覆盖为 Java 17）
 export MAVEN_OPTS="-Xms256m -Xmx1024m -Dfile.encoding=UTF-8"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-1.8.jdk/Contents/Home"
-export PATH="$JAVA_HOME/bin:$PATH"
 
 # Load Zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -108,6 +107,11 @@ wt-cd() {
 }
 
 unset config_files
+
+# PATH configurations (loaded after all dotfiles)
+export PATH="$JAVA_HOME/bin:$PATH"
+export PATH="/opt/homebrew/opt/thrift@0.9/bin:$PATH"
+export PATH="$PATH:/Users/gui/Desktop/code/fenbi-code-tool/bin"
 
 # zoxide must be initialized at the end of shell config
 if command -v zoxide &> /dev/null; then
