@@ -108,6 +108,18 @@ wt-cd() {
 
 unset config_files
 
+# claude 自动修复：检测到命令损坏时自动重装
+claude() {
+  local claude_bin="$HOME/.npm-global/bin/claude"
+  if [[ -x "$claude_bin" ]]; then
+    "$claude_bin" "$@"
+  else
+    echo "claude 命令损坏，自动重装中..."
+    rm -rf "$HOME/.npm-global/lib/node_modules/@anthropic-ai/claude-code" "$HOME/.npm-global/bin/.claude-"* 2>/dev/null
+    npm install -g @anthropic-ai/claude-code && "$claude_bin" "$@"
+  fi
+}
+
 # PATH configurations (loaded after all dotfiles)
 export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/thrift@0.9/bin:$PATH"
