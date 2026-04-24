@@ -44,13 +44,13 @@ cask 'input-source-pro'
 
 # GUI applications
 cask 'ghostty'            # Terminal emulator
-cask 'docker-desktop'
+# cask 'docker-desktop'     # Install manually from https://www.docker.com/products/docker-desktop
 cask 'feishu'
 cask 'monitorcontrol'     # External display brightness / contrast
 cask 'clash-verge-rev'    # Clash Verge proxy client
 # cask 'notion'             # Note-taking app
 # cask 'wechat'             # Messaging app
-cask 'visual-studio-code' # Code editor
+# cask 'visual-studio-code' # Code editor
 cask 'snipaste'           # Screenshot tool
 cask 'loop'               # Window management tool
 # cask 'mac-mouse-fix'      # Make Your $10 Mouse Better Than an Apple Trackpad

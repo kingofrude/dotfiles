@@ -11,6 +11,6 @@ fi
 
 echo "Installing yazi plugins and themes..."
 
-ya pkg install
+ya pack --install
 
 echo "yazi setup complete!"
